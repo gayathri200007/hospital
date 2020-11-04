@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+
+import 'doc_home.dart';
 class doc_Register extends StatefulWidget {
   @override
   _doc_RegisterState createState() => _doc_RegisterState();
@@ -125,6 +127,7 @@ class _doc_RegisterState extends State<doc_Register> {
                         elevation: 7.0,
                         child: InkWell(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>dochome()),);
                           },
                           child: Center(
                             child: Text(

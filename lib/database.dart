@@ -1,4 +1,4 @@
-import 'dart:io';
+/*import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -38,7 +38,7 @@ class Database{
   Future _oncreate(Database db,int version) async{
     db.query(
       '''
-      CREATE TABLE $_table1 
+      CREATE TABLE $_table1
       '''
 
     );
@@ -50,3 +50,4 @@ class Database{
 
 
 }
+*/

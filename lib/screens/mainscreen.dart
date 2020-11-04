@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'patlogin.dart';
-import 'doclogin.dart';
+import 'pat/patlogin.dart';
+import 'doc/doclogin.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
                     shadowColor: Colors.lightGreenAccent,
                     color: Colors.white,
                     elevation: 10.0,
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>pat_Login()),);
                       },
@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                     shadowColor: Colors.lightGreenAccent,
                     color: Colors.white,
                     elevation: 10.0,
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>doc_Login()),);
                       },

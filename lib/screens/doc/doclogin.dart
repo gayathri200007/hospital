@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'doc_home.dart';
 import 'docpassword.dart';
 import 'docregister.dart';
 class doc_Login extends StatefulWidget {
@@ -104,8 +105,10 @@ class _doc_LoginState extends State<doc_Login> {
                       shadowColor: Colors.blueAccent,
                       color: Colors.blue,
                       elevation: 7.0,
-                      child: GestureDetector(
-                        onTap: () {},
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>dochome()),);
+                        },
                         child: Center(
                           child: Text(
                             'LOGIN',

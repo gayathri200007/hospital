@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hospital/screens/pat/pat_home.dart';
 
 
 
@@ -120,8 +121,10 @@ class _pat_LoginState extends State<pat_Login> {
                       shadowColor: Colors.blueAccent,
                       color: Colors.blue,
                       elevation: 7.0,
-                      child: GestureDetector(
-                        onTap: () {},
+                      child:InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>pathome()),);
+                        },
                         child: Center(
                           child: Text(
                             'LOGIN',

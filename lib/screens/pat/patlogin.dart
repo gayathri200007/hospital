@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/screens/pat/pat_home.dart';
 
-
-
 class pat_Login extends StatefulWidget {
   @override
   _pat_LoginState createState() => _pat_LoginState();

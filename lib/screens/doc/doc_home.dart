@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hospital/screens/doc/doc_pat.dart';
 import 'package:hospital/screens/doc/doc_profile.dart';
 import 'package:hospital/screens/doc/presc_pat.dart';
-//import 'mood.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 

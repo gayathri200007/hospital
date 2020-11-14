@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hospital/data/database-helper.dart';
-import 'package:hospital/models/user1.dart';
+import 'package:hospital/models/user.dart';
 
-class RegisterPage1 extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _RegisterPage1State createState() => new _RegisterPage1State();
+  _RegisterPageState createState() => new _RegisterPageState();
 }
 
-class _RegisterPage1State  extends State<RegisterPage1> {
+class _RegisterPageState  extends State<RegisterPage> {
   BuildContext _ctx;
   bool _isLoading = false;
   final formKey = new GlobalKey<FormState>();
@@ -173,11 +173,11 @@ class _RegisterPage1State  extends State<RegisterPage1> {
       setState(() {
         _isLoading = true;
         form.save();
-        var user1 = new User1(_name, _username, _password, null);
+        var user = new User(_name, _username, _password, null);
         var db = new DatabaseHelper();
-        db.saveUser1(user1);
+        db.saveUser(user);
         _isLoading = false;
-        Navigator.of(context).pushNamed("/l");
+        Navigator.of(context).pushNamed("/login");
         if (formKey.currentState.validate()) {}
       });
     }

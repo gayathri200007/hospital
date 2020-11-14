@@ -1,149 +1,161 @@
 import 'package:flutter/material.dart';
-import 'package:hospital/screens/pat/pat_home.dart';
+import 'package:hospital/data/database-helper.dart';
+import 'package:hospital/models/user.dart';
+import 'package:hospital/screens/doc/doclogin.dart';
+import 'package:hospital/screens/pat/loginpresenter.dart';
 
-class pat_Login extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _pat_LoginState createState() => _pat_LoginState();
+  _LoginPageState createState() => new _LoginPageState();
 }
 
-class _pat_LoginState extends State<pat_Login> {
+class _LoginPageState extends State<LoginPage> implements LoginPageContract {
+  BuildContext _ctx;
+  bool _isLoading = false;
+  final formKey = new GlobalKey<FormState>();
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  String _email, _password;
+
+  LoginPagePresenter _presenter;
+
+  _LoginPageState() {
+    _presenter = new LoginPagePresenter(this);
+  }
+
+  void _register() {
+    Navigator.of(context).pushNamed("/register");
+  }
+  void _doc() {
+
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginPage1()),);
+
+  }
+
+  void _submit() {
+    final form = formKey.currentState;
+
+    if (form.validate()) {
+      setState(() {
+        _isLoading = true;
+        form.save();
+        _presenter.doLogin(_email, _password);
+
+      });
+    }
+  }
+
+  void _showSnackBar(String text) {
+    scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(text),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        resizeToAvoidBottomPadding: false,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-                child: Stack(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.fromLTRB(10.0,50.0,0.0,0.0),
-                        child: Text(
-                            'Welcome',
-                            style: TextStyle(
-                                fontSize: 80.0, fontWeight: FontWeight.bold)
-                        ),
-                      ),
-
-                      Container(
-                        padding: EdgeInsets.fromLTRB(340.0,55.0,0.0,0.0),
-                        child: Text(
-                            '!',
-                            style: TextStyle(
-                                fontSize: 80.0, fontWeight: FontWeight.bold, color: Colors.lightBlueAccent)
-                        ),
-                      )
-                    ]
-                )
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 25.0,left: 20.0,right: 20.0),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'NAME',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.greenAccent)
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'AGE',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.greenAccent)
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'GENDER',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.greenAccent)
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'MOBILE NO',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.greenAccent)
-                        )
-                    ),
-                  ),
-                  SizedBox(height: 20.0,),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: 'DEPARTMENT',
-                        labelStyle: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.greenAccent)
-                        )
-                    ),
-                    obscureText: true,
-                  ),
-                  SizedBox(height: 35.0),
-                  Container(
-                    height: 45.0,
-                    child: Material(
-                      borderRadius: BorderRadius.circular(20.0),
-                      shadowColor: Colors.blueAccent,
-                      color: Colors.blue,
-                      elevation: 7.0,
-                      child:InkWell(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>pathome()),);
-                        },
-                        child: Center(
-                          child: Text(
-                            'LOGIN',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat',
-                                fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+    _ctx = context;
+    var loginBtn = new RaisedButton(
+      onPressed: _submit,
+      child: new Text("Login"),
+      color: Colors.green,
+    );
+    var registerBtn = new RaisedButton(
+      padding: const EdgeInsets.all(10.0),
+      onPressed: _register,
+      child: new Text("Register"),
+      color: Colors.green,
+    );
+    var docBtn = new RaisedButton(
+      onPressed: _doc,
+      child: new Text("Login as Doctor"),
+      color: Colors.green,
+    );
+    var loginForm = new Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        new Text(
+          " Login",
+          textScaleFactor: 2.0,
+        ),
+        new Form(
+          key: formKey,
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new TextFormField(
+                  onSaved: (val) => _email = val,
+                  decoration: new InputDecoration(labelText: "Name"),
+                  validator: (String _email){
+                    if (_email.isEmpty) return 'Enter your Name';
+                    else return null;
+                  },
+                ),
               ),
-            ),
-            SizedBox(height: 40.0),
-          ],
-        )
+              new Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: new TextFormField(
+                  onSaved: (val) => _password = val,
+                  decoration: new InputDecoration(labelText: "Password"),
+                  validator: (String _password) {
+                    if (_password.length !=8 && _password.isEmpty) return 'Password length should be 8';
+                    else return null;
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+        new Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: loginBtn),
+        registerBtn,
+        new Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: docBtn),
+
+      ],
+    );
+
+    return new Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: new AppBar(
+        title: new Text("Login Page"),
+      ),
+      key: scaffoldKey,
+      body: new Container(
+        child: new Center(
+          child: loginForm,
+        ),
+      ),
     );
   }
-}
 
+  @override
+  void onLoginError(String error) {
+    // TODO: implement onLoginError
+    _showSnackBar("Login not successful");
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void onLoginSuccess(User user) async {
+    // TODO: implement onLoginSuccess
+    if(user.username == ""){
+      _showSnackBar("Login not successful");
+    }else{
+      _showSnackBar(user.toString());
+    }
+    setState(() {
+      _isLoading = false;
+    });
+    if(user.flaglogged == "logged"){
+      print("Logged");
+      Navigator.of(context).pushNamed("/home");
+    }else{
+      print("Not Logged");
+    }
+  }
+}

@@ -3,6 +3,7 @@ import 'package:hospital/data/database-helper.dart';
 import 'package:hospital/models/user.dart';
 import 'package:hospital/screens/doc/doclogin.dart';
 import 'package:hospital/screens/pat/loginpresenter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -54,27 +55,94 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   @override
   Widget build(BuildContext context) {
     _ctx = context;
-    var loginBtn = new RaisedButton(
-      onPressed: _submit,
-      child: new Text("Login"),
-      color: Colors.green,
+    var loginBtn = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ButtonTheme(
+        padding: EdgeInsets.only(),
+        buttonColor: Colors.white70,
+        height: 50,
+        minWidth:350,
+        child: RaisedButton(
+          child: Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.teal[800],
+              fontSize: 20,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          onPressed: () {
+            _submit();
+
+          },
+        ),
+      ),
     );
-    var registerBtn = new RaisedButton(
-      padding: const EdgeInsets.all(10.0),
-      onPressed: _register,
-      child: new Text("Register"),
-      color: Colors.green,
+
+    var registerBtn = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ButtonTheme(
+        padding: EdgeInsets.only(),
+        buttonColor: Colors.white70,
+        height: 50,
+        minWidth: 350,
+        child: RaisedButton(
+          child: Text(
+            'Register',
+            style: TextStyle(
+              color: Colors.teal[800],
+              fontSize: 20,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          onPressed: () {
+            _register();
+
+          },
+        ),
+      ),
     );
-    var docBtn = new RaisedButton(
-      onPressed: _doc,
-      child: new Text("Login as Doctor"),
-      color: Colors.green,
+    var docBtn = Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ButtonTheme(
+        padding: EdgeInsets.only(),
+        buttonColor: Colors.white70,
+        height: 50,
+        minWidth: 350,
+        child: RaisedButton(
+          child: Text(
+            'Login as DOCTOR',
+            style: TextStyle(
+              color: Colors.teal[800],
+              fontSize: 20,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          onPressed: () {
+            _doc();
+
+          },
+        ),
+      ),
     );
     var loginForm = new Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         new Text(
-          " Login",
+          " \n Login",
+          style: GoogleFonts.lato(
+          textStyle:TextStyle(
+            color: Colors.teal[800],
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          )
+          ),
           textScaleFactor: 2.0,
         ),
         new Form(
@@ -120,7 +188,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
     return new Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: new AppBar(
-        title: new Text("Login Page"),
+        title: new Text(" \t Login Page"),
       ),
       key: scaffoldKey,
       body: new Container(

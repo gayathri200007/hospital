@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hospital/data/database-helper.dart';
 import 'package:hospital/models/user1.dart';
 
@@ -20,11 +21,30 @@ class _RegisterPage1State  extends State<RegisterPage1> {
   @override
   Widget build(BuildContext context) {
     _ctx = context;
-    var loginBtn = new RaisedButton(
-      onPressed: _submit,
+    var loginBtn =  Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ButtonTheme(
+        padding: EdgeInsets.only(),
+        buttonColor: Colors.white70,
+        height: 50,
+        minWidth: 350,
+        child: RaisedButton(
+          child: Text(
+            'Register',
+            style: TextStyle(
+              color: Colors.teal[800],
+              fontSize: 20,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          onPressed: () {
+            _submit();
 
-      child: new Text("Register"),
-      color: Colors.green,
+          },
+        ),
+      ),
     );
 
 
@@ -32,7 +52,14 @@ class _RegisterPage1State  extends State<RegisterPage1> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         new Text(
-          "Login",
+          "Register",
+          style: GoogleFonts.lato(
+              textStyle:TextStyle(
+                color: Colors.teal[800],
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              )
+          ),
           textScaleFactor: 2.0,
         ),
         new Form(
@@ -166,14 +193,14 @@ class _RegisterPage1State  extends State<RegisterPage1> {
     ));
   }
 
-  void _submit() {
+   void _submit(){
     final form = formKey.currentState;
 
     if (form.validate()) {
       setState(() {
         _isLoading = true;
         form.save();
-        var user1 = new User1(_name, _username, _password, null);
+        var user1 = new User1(_name, _username, _password,phno,dept, null);
         var db = new DatabaseHelper();
         db.saveUser1(user1);
         _isLoading = false;
